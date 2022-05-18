@@ -1,0 +1,67 @@
+﻿@model IEnumerable<Kharja>
+@{
+    ViewData["Title"] = "EL Kharjet ";
+}
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4 col-xs-6 border-primary mb-3">
+            <div class="card mb-3" style="max-width: 540px;">
+                <div class="row g-0">
+                    <div class="col-md-12">
+                        <div class="card-header text-white bg-info">
+                            <p class="card-text">
+                                <h5 class="card-title text-center" style="font-weight:bolder">
+                                    @item.Name
+                             
+                                </h5>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <img src="@item.ImageUrl" width="100%">
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card-body">
+                            <p class="card-text">@item.Desc</p>
+                            <p class="card-text"><b>Organisateur: </b>@item.Organisateur.Name</p>
+                            <p class="card-text"><b>Category: </b>@item.KharjaCategorie</p>
+                            <p class="card-text"><b> De : </b>@item.StartDate.ToString("dd MMM yyyy")</p>
+                            <p class="card-text"><b>Jusqu a: </b>@item.EndDate.ToString("dd MMM yyyy")</p>
+                            <p class="card-text ">
+                                <b> Validité : </b>
+                                @if (DateTime.Now >= item.StartDate && DateTime.Now <= item.EndDate)
+                                {
+                                    <span class="badge bg-success text-white">MAZZELT</span>
+                                }
+                                else if (DateTime.Now > item.EndDate)
+                                {
+                                    <span class="badge bg-danger text-white">Inchallah marra jey</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-primary text-white">Coming soon</span>
+                                }
+                            </p>
+
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="card-footer ">
+                            <p class="card-text">
+                                <a class="btn btn-outline-primary float-right" asp-action="Details" asp-route-id="@item.Id">
+                                    <i class="bi bi-eye-fill"></i> Voir Plus
+                                </a>
+                                <a class="btn btn-success text-white @((DateTime.Now > item.EndDate) ? "disabled" : "")" 
+                                   asp-controller="Orders" 
+                                   asp-action="AddItemToShoppingCart" 
+                                   asp-route-id="@item.Id">
+                                <i class="bi bi-calendar2-check"></i> Reserver (Prix @item.Prix.ToString())</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

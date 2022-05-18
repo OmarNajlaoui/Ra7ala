@@ -1,0 +1,57 @@
+﻿
+@model Site
+@{
+    ViewData["Title"] = "Supprimer le site ";
+}
+
+<div class="row text">
+    <div class="col-md-8 offset-2">
+        <p>
+            <h1>Supprimer le site  @Model.Name ?</h1>
+        </p>
+        <div class="row">
+            <div class="col-md-8 offset-2">
+                    <div class="form-group text-center">
+                        <img class="border-info " style="max-width: 150px" id="SitePicturePreview" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ImageUrl" class="control-label"></label>
+                        <input asp-for="ImageUrl" class="form-control" readonly />
+                        <span asp-validation-for="ImageUrl" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Name" class="control-label"></label>
+                        <input asp-for="Name" class="form-control" readonly />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Adresse" class="control-label"></label>
+                        <input asp-for="Adresse" class="form-control" readonly />
+                        <span asp-validation-for="Adresse" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Desc" class="control-label"></label>
+                        <input asp-for="Desc" class="form-control" readonly />
+                        <span asp-validation-for="Desc" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <form asp-action="Delete">
+                            <input type="hidden" asp-for="Id" />
+                            <input type="submit" value="Confirm" class="btn btn-danger float-right" />
+                        </form>
+                        <a class="btn btn-outline-secondary" asp-action="Index">Retour</a>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            var output = document.getElementById('SitePicturePreview');
+            output.src = $("#SitePictureURL").val();
+        })
+    </script>
+}
